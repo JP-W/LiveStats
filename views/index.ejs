@@ -1,0 +1,9 @@
+<% vars.forEach(function(vars) { %>
+    <li>Name: <%= vars[0] %></li>
+    <li>CPU: <%= vars[1] %></li>
+    <li>RAM: <%= vars[2] %></li>
+    <br>
+<% }); %>
+<% if (vars == "") { %>
+    No devices have been added.
+<% } %>
