@@ -13,7 +13,7 @@ config.sections()
 config.read("config.cfg")
 sIP = config["DEFAULT"]["ServerIP"]
 sPort = config["DEFAULT"]["ServerPort"]
-UID = config["DEFAULT"]["UID"]
+UID = "Computer2"
 deviceTopic = "devices/"+UID
 
 def on_connect(client, userdata, flags, rc):

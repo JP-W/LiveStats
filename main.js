@@ -1,3 +1,6 @@
+var mqtt = require('mqtt');
+var client  = mqtt.connect('mqtt://localhost');
+
 function initMQTT() {
     var mosca = require('mosca');
     var settings = { port:1883 };
@@ -7,20 +10,14 @@ function initMQTT() {
     });
 }
 
-initMQTT();
-var devices = []
-var mqtt = require('mqtt');
-var client  = mqtt.connect('mqtt://localhost');
-const express = require('express')
-const handlebars = require('handlebars');
-const app = express()
-app.set('view engine', 'ejs')
-app.set('views', __dirname + '/views');
-app.listen(80)
-app.get('/', function(req, res) {
-    vars=devices
-    res.render('index', {vars: vars});
-});
+function isInArray(array, item) {
+    for (var i = 0; i < array.length; i++) {
+        if (array[i][0].toString() == item.toString()) {
+            return true;
+        }
+    }
+    return false;
+}
 
 console.log("MQTT Connected");
 
@@ -30,11 +27,24 @@ client.on('connect', function () {
 })
    
 client.on('message', function (topic, message) { // EVERY x SECONDS RESET ARRAY
-    console.log(message.toString())
     vals = message.toString().split(",")
-    if (vals[0].indexOf(devices) == false) {
+    if (!isInArray(devices, vals[0])) {
         devices.push(vals)
     }
 })
 
-setInterval(function() {devices = []}, 1500);
+setInterval(function() {console.log(devices); devices = []}, 1500);
+
+initMQTT();
+var devices = 0;
+const express = require('express')
+const handlebars = require('handlebars');
+const app = express()
+app.set('view engine', 'ejs')
+app.set('views', __dirname + '/views');
+app.listen(80)
+app.get('/', function(req, res) {
+    res.render('index', {vars: devices});
+});
+
+// NAME, CPU, RAM, IP

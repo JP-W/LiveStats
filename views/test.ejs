@@ -1,0 +1,9 @@
+<% vars.forEach(function(vars) { %>
+    <div>
+        <%= vars[0] %>
+        <%= vars[1] %>
+    </div>
+<% }); %>
+<% if (vars == "") { %>
+    No devices have been added.
+<% } %>
