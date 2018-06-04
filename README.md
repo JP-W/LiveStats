@@ -3,5 +3,4 @@
 To-Do:
  - Compilation of Python to EXE files for Windows
  - Other types of system data (Such as storage left on primary drive, etc.)
- - Make a far superior web interface using Bootstrap or Foundation (undecided)
  - Two-way transfer ie. execution of remote commands (although this could be risky if handled incorrectly)
